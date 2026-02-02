@@ -6,7 +6,7 @@ from lib.utils.misc import dict_to_markdown
 # core config
 parser = argparse.ArgumentParser(description='Missing Modality in Multimodal Action Recognition')
 parser.add_argument('--dataset', type=str, default='ntu_rgbd60',
-                    choices=['ntu_rgbd60', 'ntu_rgbd120', 'nw_ucla', 'uwa3d'])
+                    choices=['ntu_rgbd60', 'ntu_rgbd120', 'nw_ucla', 'uwa3d', 'upmc_food101', 'food101_image'])
 parser.add_argument('--num_frames', default=16, type=int,
                     help='number of input frames (i.e., sequence length) to transformer encoder.')
 parser.add_argument('--img_size', default=224, type=int,
@@ -61,6 +61,20 @@ parser.add_argument('--nwucla_dir', type=str, default='/dataset/multiview_action
 # for UWA3D dataset
 parser.add_argument('--uwa3d_dir', type=str, default='/dataset/uwa3d/',
                     help='directory of rgb dataset')
+
+
+# for UPMC Food-101 dataset
+parser.add_argument('--upmc_food101_dir', type=str, default='/dataset/upmc_food101/',
+                    help='root directory for UPMC Food-101 frames')
+parser.add_argument('--upmc_food101_split', type=str, default=None,
+                    help='optional split file path (expects "rel/path [label]")')
+
+
+# for Food-101 image dataset (torchvision)
+parser.add_argument('--food101_dir', type=str, default='/dataset/food101/',
+                    help='root directory for torchvision Food-101 data')
+parser.add_argument('--food101_download', action='store_true',
+                    help='download Food-101 via torchvision if missing')
 
 
 # training config

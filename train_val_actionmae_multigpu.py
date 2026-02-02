@@ -19,7 +19,6 @@ except ImportError:
 
 from lib.modeling.model_builder import build_model
 from lib.dataset.dataset_builder import build_dataset, collate_fn, prepare_batch_inputs
-from lib.dataset.action_classes import NTURGBD60_CLASSES, NTURGBD120_CLASSES, NWUCLA_CLASSES
 from lib.utils.misc import cur_time, AverageMeter
 from lib.utils.model_utils import count_parameters, accuracy, per_class_accuracy
 from lib.utils.train_utils import to_python_float, reduce_tensor
