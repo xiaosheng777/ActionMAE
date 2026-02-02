@@ -3,7 +3,7 @@ from functools import partial
 import torch.nn as nn
 
 from lib.modeling.baseline_resnet_fusion import BaselineResNet
-from lib.modeling.actionmae_v5 import ActionMAE
+from lib.modeling.actionmae import ActionMAE
 
 ##################################
 #        Baseline: ResNet        #
@@ -88,6 +88,8 @@ def build_model(args):
 	elif args.dataset == 'ntu_rgbd120': num_classes = 120
 	elif args.dataset == 'nw_ucla': num_classes = 10
 	elif args.dataset == 'uwa3d': num_classes = 30
+	elif args.dataset == 'upmc_food101': num_classes = 101
+	elif args.dataset == 'food101_image': num_classes = 101
 	else: raise NotImplementedError
 
 	net = model(

@@ -48,6 +48,81 @@ $ ./train_val_actionmae_multigpu.sh
 
 See/modify configurations in ``ActionMAE/lib/configs.py``
 
+### Food-101 Image Classification (torchvision)
+If you want to run image classification instead of video classification, you can
+use the torchvision Food-101 dataset. Each image is repeated to form a
+1-frame (or multi-frame) clip so it can pass through the ActionMAE pipeline.
+
+Example command (single-GPU):
+```
+torchrun --nproc_per_node=1 train_val_actionmae_multigpu.py \
+  --dataset food101_image \
+  --modality rgb \
+  --food101_dir /path/to/food101 \
+  --food101_download \
+  --num_frames 1 \
+  --img_size 224 \
+  --model actionmae \
+  --model_size small \
+  --fusion sum \
+  --end_epoch 50 \
+  --bs 8 \
+  --eval_bs 8
+```
+
+### UPMC Food-101 (RGB only)
+This repo can be run on the UPMC Food-101 dataset using RGB frames only.
+Prepare the dataset as extracted frames and update the dataset root to
+`--upmc_food101_dir`. The loader expects one of the following layouts:
+
+**Option A: folder splits**
+```
+upmc_food101/
+  train/
+    apple_pie/
+      video_0001/
+        000001.jpg
+        000002.jpg
+    ...
+  val/
+    apple_pie/
+      video_0123/
+        000001.jpg
+  test/  # optional
+```
+
+**Option B: split files**
+```
+upmc_food101/
+  splits/
+    train.txt
+    val.txt
+    test.txt
+    class_list.txt  # optional, list of class names (one per line)
+```
+Each line in `train.txt`/`val.txt`/`test.txt` should be:
+```
+class_name/video_dir [label]
+```
+If `label` is omitted, it is inferred from `class_list.txt` or the
+alphabetical order of class folders.
+
+Example command (single-GPU):
+```
+torchrun --nproc_per_node=1 train_val_actionmae_multigpu.py \
+  --dataset upmc_food101 \
+  --modality rgb \
+  --upmc_food101_dir /path/to/upmc_food101 \
+  --num_frames 16 \
+  --img_size 224 \
+  --model actionmae \
+  --model_size small \
+  --fusion sum \
+  --end_epoch 50 \
+  --bs 8 \
+  --eval_bs 8
+```
+
 ## Citation
 
     @inproceedings{woo2023towards,

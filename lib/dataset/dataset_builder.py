@@ -3,6 +3,8 @@ from .ntu60_dataset import NTU60Dataset
 from .ntu120_dataset import NTU120Dataset
 from .nwucla_dataset import NWUCLADataset
 from .uwa3d_dataset import UWA3DDataset
+from .upmc_food101_dataset import UPMCFood101Dataset
+from .food101_image_dataset import Food101ImageDataset
 from lib.utils.tensor_utils import pad_sequences_1d
 
 
@@ -15,6 +17,10 @@ def build_dataset(args, phase):
         Dataset = NWUCLADataset
     elif args.dataset == 'uwa3d':
         Dataset = UWA3DDataset
+    elif args.dataset == 'upmc_food101':
+        Dataset = UPMCFood101Dataset
+    elif args.dataset == 'food101_image':
+        Dataset = Food101ImageDataset
     else:
         raise NotImplementedError
         
@@ -32,7 +38,11 @@ def build_dataset(args, phase):
         skeleton_dir=args.skeleton_dir,
         ir_dir=args.ir_dir,
         nwucla_dir=args.nwucla_dir,
-        uwa3d_dir=args.uwa3d_dir
+        uwa3d_dir=args.uwa3d_dir,
+        upmc_food101_dir=args.upmc_food101_dir,
+        upmc_food101_split=args.upmc_food101_split,
+        food101_dir=args.food101_dir,
+        food101_download=args.food101_download
     )
 
 
